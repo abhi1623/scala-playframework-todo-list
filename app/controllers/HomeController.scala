@@ -54,12 +54,8 @@ class HomeController @Inject()(cc: ControllerComponents)
     taskForm.bindFromRequest.fold(
       errors => BadRequest(views.html.tasks(Task.all(), errors)),
       label => {
-        /**
-          * TODO: [TASK-2]
-          * 1. Use the model class to call the create method
-          * 2. Remove the Ok response below and send the redirect(refer to index method) response to go to /tasks page
-          */
-        Ok
+        Task.create(label)
+        Redirect(routes.HomeController.tasks())
       }
     )
   }
@@ -75,6 +71,14 @@ class HomeController @Inject()(cc: ControllerComponents)
     * LBCD-NOTE: TODO here is a play action for being developer friendly.
     * Used to mark an action that is still not implemented.
     */
-  def updateTask(id: Long) = TODO
+  def updateTask(id: Long) = Action { implicit request =>
+    taskForm.bindFromRequest.fold(
+      errors => BadRequest(views.html.tasks(Task.all(), errors)),
+      label => {
+        Task.update(id, label)
+        Redirect(routes.HomeController.tasks())
+      }
+    )
+  }
 
 }

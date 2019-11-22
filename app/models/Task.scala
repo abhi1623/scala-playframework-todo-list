@@ -22,10 +22,7 @@ object Task {
     * Method to return the list of tasks that the user has added till now.
     * @return
     */
-  def all(): List[Task] = {
-    Task(1, "Hardcoded task 1") :: Task(2, "Hardcoded task 2") :: Nil
-    //TODO [TASK-1] Please complete business logic to return all the task from 'tasks' and remove the hard coding.
-  }
+  def all(): List[Task] = tasks.toList.map(tuple =>Task(tuple._1, tuple._2))
 
   /**
     * Method to create a task and add it to the existing tasks
@@ -33,8 +30,7 @@ object Task {
     * @param label
     */
   def create(label: String): Unit = {
-    //TODO [TASK-3] Please complete business logic to create a new task and add it to the existing tasks.
-    // While creating a task each should have a unique id to it.
+    tasks(tasks.size + 1) = label
   }
 
   /**
@@ -43,7 +39,7 @@ object Task {
     * @param label
     */
   def update(id: Long, label: String): Unit = {
-    //TODO [TASK-6] Please complete business logic to update a given task
+    tasks(id) = label
   }
 
 }
